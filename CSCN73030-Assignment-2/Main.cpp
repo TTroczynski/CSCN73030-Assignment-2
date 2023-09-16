@@ -3,7 +3,14 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+
+#define PRE_RELEASE
+
+#ifdef PRE_RELEASE
+#include "StudentDataEmails.h"
+#else
 #include "StudentData.h"
+#endif
 
 int main()
 {
@@ -17,7 +24,13 @@ int main()
 	std::streampos size = 0;
 	std::ifstream ifStreamIn;
 
+#ifdef PRE_RELEASE
+
+	path = "./StudentData_Emails.txt";
+
+#else
 	path = "./StudentData.txt";
+#endif
 
 	ifStreamIn = std::ifstream(path, std::ios_base::in);
 
@@ -39,6 +52,29 @@ int main()
 
 	}
 
+#ifdef PRE_RELEASE
+	std::cout << "Running: pre-release" << std::endl;
+
+	while (std::getline(sstream, lastName, ','))
+	{
+		STUDENT_DATA student;
+
+		std::getline(sstream, firstName, ',');
+		std::getline(sstream, email, '\n');
+
+		student.firstName = firstName;
+		student.lastName = lastName;
+		student.email = email;
+		studentData.push_back(student);
+
+#ifdef _DEBUG
+		std::cout << "Student: " << student.firstName << ", " << student.lastName << ", " << student.email << std::endl;
+#endif
+	}
+
+#else
+	std::cout << "Running: standard" << std::endl;
+
 	while (std::getline(sstream, lastName, ','))
 	{
 		STUDENT_DATA student;
@@ -52,9 +88,8 @@ int main()
 #ifdef _DEBUG
 		std::cout << "Student: " << student.firstName << ", " << student.lastName << std::endl;
 #endif
-
 	}
-
+#endif
 	delete buffer;
 	return 0;
 }
