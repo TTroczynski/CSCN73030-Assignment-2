@@ -48,6 +48,11 @@ int main()
 		student.firstName = firstName;
 		student.lastName = lastName;
 		studentData.push_back(student);
+
+#ifdef _DEBUG
+		std::cout << "Student: " << student.firstName << ", " << student.lastName << std::endl;
+#endif
+
 	}
 
 	delete buffer;
