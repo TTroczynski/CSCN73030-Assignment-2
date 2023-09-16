@@ -23,5 +23,8 @@
     <ClInclude Include="StudentData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StudentDataEmails.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
